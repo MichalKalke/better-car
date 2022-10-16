@@ -1,7 +1,7 @@
 # better-car
 ## Plan inżynierki - małe zadanka na 1 posiedzenie
 
-- [ ] Zamówienie ładowarki samochodowej i LED'ów
+- [x] Zamówienie ładowarki samochodowej i LED'ów
 - [ ] Umówienie się na hamownie
 - [ ] Złożenie projektu 
 - [ ] Skalibrowanie ekranu

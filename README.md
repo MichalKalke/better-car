@@ -3,8 +3,8 @@
 
 - [x] Zamówienie ładowarki samochodowej i LED'ów
 - [ ] Umówienie się na hamownie
-- [ ] Złożenie projektu 
-- [ ] Skalibrowanie ekranu
+- [x] Złożenie projektu - bez ledów
+- [x] Skalibrowanie ekranu - nie potrzeba
 - [ ] Przetestowanie czy raspberry łączy się ze złączem OBD
 - [ ] Zaimportowanie biblioteki pyOBD w celu sprawdzenia czy działa
 - [ ] Przetestowanie czy dane są zczytywane z silnika

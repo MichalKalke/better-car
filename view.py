@@ -5,13 +5,15 @@ from pygame import QUIT
 pg.init()
 
 width, height = 800, 480
-window = pg.display.set_mode((width, height))
-pg.display.set_caption('Perfect Shifting')
+window = pg.display.set_mode((width, height), pg.NOFRAME)
 
 background = pg.image.load('images/carbon.jpg')
 background = pg.transform.scale(background, (width, height))
 window.blit(background, (0, 0))
 end = pg.image.load('images/end.png').convert_alpha()
+arr = pg.PixelArray(end)
+arr.replace((0,0,0), (184, 28, 17))
+del arr
 
 
 # button

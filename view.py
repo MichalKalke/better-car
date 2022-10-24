@@ -25,6 +25,7 @@ class Button():
         self.clicked = False
 
     def draw(self):
+        action = False
         # get mouse position
         pos = pg.mouse.get_pos()
 
@@ -32,7 +33,7 @@ class Button():
         if self.rect.collidepoint(pos):
             if pg.mouse.get_pressed()[0] == 1 and self.clicked == False:
                 self.clicked = True
-                print("eo")
+                action = True
 
         if pygame.mouse.get_pressed()[0] == 0:
             self.clicked = False
@@ -40,6 +41,7 @@ class Button():
         # draw button on screen
         window.blit(self.image, (self.rect.x, self.rect.y))
 
+        return action
 
 # button instances
 end_btn = Button(end, 750, 50,0.8)
@@ -48,7 +50,8 @@ end_btn = Button(end, 750, 50,0.8)
 running = True
 while running:
 
-    end_btn.draw()
+    if end_btn.draw():
+        running = False
 
     # event handler
     for event in pg.event.get():

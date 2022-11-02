@@ -1,6 +1,9 @@
 import pygame as pg
 import pygame.mouse
 from pygame import QUIT
+import constants as const
+
+
 
 pg.init()
 
@@ -21,6 +24,7 @@ del arr
 # label font
 font = pg.font.Font('freesansbold.ttf', 50)
 
+i =const.Constants()
 
 # label
 class Label:
@@ -42,7 +46,7 @@ class Label:
             box_surf = pygame.Surface(label.get_rect().inflate(20, 20).size).convert_alpha()
 
             box_surf.fill((255, 255, 255, 0))
-            pygame.draw.rect(box_surf, [120, 0, 0], box_surf.get_rect(), 3)
+            pygame.draw.rect(box_surf, white, box_surf.get_rect(), 3)
 
             box_surf.blit(label, label.get_rect(center=box_surf.get_rect().center))
             label = box_surf

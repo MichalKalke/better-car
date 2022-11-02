@@ -1,30 +1,23 @@
 import pygame as pg
 import pygame.mouse
 from pygame import QUIT
-import constants as const
-
-
+import constants as cnst
+#from matplotlib import font_manager
 
 pg.init()
 
-# constant
-width, height = 800, 480
-white = (255, 255, 255)
+const = cnst.Constants()
 
-window = pg.display.set_mode((width, height), pg.NOFRAME)
+window = pg.display.set_mode((const.resolution.width, const.resolution.height), pg.NOFRAME)
 
 background = pg.image.load('images/carbon.jpg')
-background = pg.transform.scale(background, (width, height))
+background = pg.transform.scale(background, (const.resolution.width, const.resolution.height))
 window.blit(background, (0, 0))
-end = pg.image.load('images/end.png').convert_alpha()
-arr = pg.PixelArray(end)
-arr.replace((0, 0, 0), (184, 28, 17))
-del arr
+end = pg.image.load('images/end.png')
 
 # label font
-font = pg.font.Font('freesansbold.ttf', 50)
-
-i =const.Constants()
+font = pg.font.SysFont('verdana', 40)
+print(pg.font.get_fonts())
 
 # label
 class Label:
@@ -46,7 +39,7 @@ class Label:
             box_surf = pygame.Surface(label.get_rect().inflate(20, 20).size).convert_alpha()
 
             box_surf.fill((255, 255, 255, 0))
-            pygame.draw.rect(box_surf, white, box_surf.get_rect(), 3)
+            pygame.draw.rect(box_surf, const.colors.white, box_surf.get_rect(), 3)
 
             box_surf.blit(label, label.get_rect(center=box_surf.get_rect().center))
             label = box_surf
@@ -86,12 +79,30 @@ class Button:
 
 # button instances
 end_btn = Button(end, 750, 50, 0.8)
-test = Label("wielki test", 20, 40, white, None, True)
+
+# label instances
+test = Label("Switch mode", 20, 20, const.colors.white, None, None)
+engineLoadLabel = Label("Engine load", 500, 350, const.colors.white, None, True)
+engineLoad = Label(str(53) + " %", 600, 290, const.colors.white, None, None)
+acceleratorLabel = Label("accelerator", 500, 170, const.colors.white, None, True)
+accelerator = Label(str(60)+ " %", 600, 110, const.colors.white, None, None)
+turbochargerTempLabel = Label("Turbocharger", 40, 350, const.colors.white, None, True)
+turbochargerTemp = Label(str(80)+ " °C", 20, 290, const.colors.white, None, None)
+rpmLabel = Label("RPM", 20, 170, const.colors.white, None, True)
+rpm= Label(str(2500), 20, 100, const.colors.white, None, None)
 
 # game loop
 running = True
 while running:
     test.draw()
+    engineLoadLabel.draw()
+    engineLoad.draw()
+    acceleratorLabel.draw()
+    accelerator.draw()
+    turbochargerTempLabel.draw()
+    turbochargerTemp.draw()
+    rpmLabel.draw()
+    rpm.draw()
 
     if end_btn.draw():
         running = False

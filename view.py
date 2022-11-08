@@ -4,7 +4,6 @@ import pygame as pg
 import pygame.mouse
 from pygame import QUIT
 import constants as cnst
-# from matplotlib import font_manager
 
 pg.init()
 
@@ -12,7 +11,7 @@ const = cnst.Constants()
 
 window = pg.display.set_mode((const.resolution.width, const.resolution.height), pg.NOFRAME)
 
-background = pg.image.load('images/carbon.jpg')
+background = pg.image.load('images/carbon3.jpg')
 background = pg.transform.scale(background, (const.resolution.width, const.resolution.height))
 window.blit(background, (0, 0))
 end = pg.image.load('images/end.png')

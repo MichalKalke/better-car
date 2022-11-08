@@ -1,6 +1,6 @@
 {
    "colors":{
-      "white":"#fcfcfc",
+      "white":"(255,255,255,0)",
       "red":"#b81c11"
    },
    "resolution":{

@@ -8,5 +8,6 @@ class Constants:
         j = json.loads(f.read(), object_hook=lambda d: SimpleNamespace(**d))
         f.close()
         self.colors = j.colors
+        print(self.colors)
         self.resolution = j.resolution
         self.gears = j.gearChanging

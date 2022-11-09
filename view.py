@@ -9,7 +9,7 @@ pg.init()
 
 const = cnst.Constants()
 
-window = pg.display.set_mode((const.resolution.width, const.resolution.height), pg.NOFRAME)
+window = pg.display.set_mode((const.resolution.width, const.resolution.height), pg.FULLSCREEN)
 
 background = pg.image.load('images/background.jpg')
 background = pg.transform.scale(background, (const.resolution.width, const.resolution.height))
@@ -24,7 +24,7 @@ st = pg.image.load('images/stS.png')
 white = (255,255,255)
 
 # label font
-font = pg.font.SysFont('freesansbold.ttf', 40)
+font = pg.font.SysFont('freesansbold.ttf', 60)
 
 # label
 class Label:
@@ -33,7 +33,6 @@ class Label:
         self.x = x
         self.y = y
         self.color = color
-        print(self.color)
         self.backgroundColor = background_color
         self.isRect = is_rect
 
@@ -88,7 +87,7 @@ class Button:
 # button instances
 end_btn = Button(end, 750, 50, 0.8)
 sport_btn = Button(sport, 50, 50, 1)
-eco_btn = Button(eco, 200, 50, 1)
+eco_btn = Button(eco, 50, 50, 1)
 st_label = Button(st, 750, 440, 1)
 
 # label instances
@@ -102,10 +101,7 @@ turbochargerTemp = Label(str(80) + " °C", 20, 290, white, None, None)
 rpmLabel = Label("RPM", 20, 170, white, None, True)
 rpm = Label(str(2500), 20, 100, white, None, None)
 
-# game loop
-running = True
-while running:
-    #test.draw()
+def renderLabels():
     engineLoadLabel.draw()
     engineLoad.draw()
     acceleratorLabel.draw()
@@ -114,12 +110,24 @@ while running:
     turbochargerTemp.draw()
     rpmLabel.draw()
     rpm.draw()
-
     st_label.draw()
 
-    if sport_btn.draw():
-        print("bruum")
+sport_mode = True
+# game loop
+running = True
+while running:
+
+    renderLabels()
+
+    if sport_mode is False:
         eco_btn.draw()
+        if eco_btn.draw():
+            sport_mode = True
+    else:
+        sport_btn.draw()
+        if sport_btn.draw():
+            print("elo")
+            sport_mode = False
 
     if end_btn.draw():
         running = False

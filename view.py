@@ -16,7 +16,8 @@ background = pg.transform.scale(background, (const.resolution.width, const.resol
 window.blit(background, (0, 0))
 end = pg.image.load('images/end.png')
 
-white = (255,255,255,1)
+# colors
+white = (255,255,255)
 
 # label font
 font = pg.font.SysFont('freesansbold.ttf', 40)
@@ -41,7 +42,7 @@ class Label:
         if self.isRect:
             box_surf = pygame.Surface(label.get_rect().inflate(20, 20).size).convert_alpha()
 
-            box_surf.fill((255, 255, 255, 0))
+            box_surf.fill((255, 255, 255, 1))
             pygame.draw.rect(box_surf, white, box_surf.get_rect(), 3)
 
             box_surf.blit(label, label.get_rect(center=box_surf.get_rect().center))
@@ -84,8 +85,8 @@ class Button:
 end_btn = Button(end, 750, 50, 0.8)
 
 # label instances
-test = Label("Switch mode", 20, 20, const.colors.white, None, None)
-engineLoadLabel = Label("Engine load", 500, 350, white, None, True)
+test = Label("Switch mode", 20, 20, white, None, None)
+engineLoadLabel = Label("Engine load", 500, 350, const.white, None, True)
 engineLoad = Label(str(53) + " %", 600, 290, white, None, None)
 acceleratorLabel = Label("accelerator", 500, 170, white, None, True)
 accelerator = Label(str(60)+ " %", 600, 110, white, None, None)

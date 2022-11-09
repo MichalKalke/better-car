@@ -14,7 +14,11 @@ window = pg.display.set_mode((const.resolution.width, const.resolution.height), 
 background = pg.image.load('images/background.jpg')
 background = pg.transform.scale(background, (const.resolution.width, const.resolution.height))
 window.blit(background, (0, 0))
+
 end = pg.image.load('images/end.png')
+sport = pg.image.load('images/sport.png')
+eco = pg.image.load('images/eco.png')
+st = pg.image.load('images/stS.png')
 
 white = (255,255,255,1)
 
@@ -82,6 +86,9 @@ class Button:
 
 # button instances
 end_btn = Button(end, 750, 50, 0.8)
+sport_btn = Button(sport, 50, 50, 1)
+eco_btn = Button(eco, 200, 50, 1)
+st_label = Button(st, 750, 440, 1)
 
 # label instances
 test = Label("Switch mode", 20, 20, const.colors.white, None, None)
@@ -106,6 +113,12 @@ while running:
     turbochargerTemp.draw()
     rpmLabel.draw()
     rpm.draw()
+
+    st_label.draw()
+
+    if sport_btn.draw():
+        print("bruum")
+        eco_btn.draw()
 
     if end_btn.draw():
         running = False

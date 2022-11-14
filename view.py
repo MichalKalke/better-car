@@ -28,13 +28,15 @@ font = pg.font.SysFont('freesansbold.ttf', 60)
 
 # label
 class Label:
-    def __init__(self, text, x, y, color, background_color, is_rect):
+    def __init__(self, text, x, y, color, background_color, is_rect, inflate_x=None, inflate_y=None):
         self.text = text
         self.x = x
         self.y = y
         self.color = color
         self.backgroundColor = background_color
         self.isRect = is_rect
+        self.inflate_x = inflate_x if inflate_x is not None else 20
+        self.inflate_y = inflate_y if inflate_y is not None else 20
 
     def draw(self):
         if self.backgroundColor is not None:
@@ -43,7 +45,7 @@ class Label:
             label = font.render(self.text, True, self.color)
 
         if self.isRect:
-            box_surf = pygame.Surface(label.get_rect().inflate(20, 20).size).convert_alpha()
+            box_surf = pygame.Surface(label.get_rect().inflate(self.inflate_x, self.inflate_y).size).convert_alpha()
 
             box_surf.fill((255, 255, 255, 1))
             pygame.draw.rect(box_surf, white, box_surf.get_rect(), 3)
@@ -63,6 +65,7 @@ class Button:
         self.rect = self.image.get_rect()
         self.rect.center = (x, y)
         self.clicked = False
+
 
     def draw(self):
         action = False
@@ -92,14 +95,14 @@ st_label = Button(st, 750, 440, 1)
 
 # label instances
 test = Label("Switch mode", 20, 20, white, None, None)
-engineLoadLabel = Label("Engine load", 500, 350, const.white, None, True)
-engineLoad = Label(str(53) + " %", 600, 290, white, None, None)
-acceleratorLabel = Label("accelerator", 500, 170, white, None, True)
-accelerator = Label(str(60)+ " %", 600, 110, white, None, None)
+engineLoadLabel = Label("Engine load", 470, 350, const.white, None, True, 57)
+engineLoad = Label(str(53) + " %", 580, 290, white, None, None)
+acceleratorLabel = Label("accelerator", 470, 170, white, None, True, 67)
+accelerator = Label(str(60)+ " %", 580, 110, white, None, None)
 turbochargerTempLabel = Label("Turbocharger", 40, 350, white, None, True)
-turbochargerTemp = Label(str(80) + " °C", 20, 290, white, None, None)
-rpmLabel = Label("RPM", 20, 170, white, None, True)
-rpm = Label(str(2500), 20, 100, white, None, None)
+turbochargerTemp = Label(str(80) + " °C", 150, 290, white, None, None)
+rpmLabel = Label("RPM", 40, 170, white, None, True, 195)
+rpm = Label(str(2500), 140, 110, white, None, None)
 
 def renderLabels():
     engineLoadLabel.draw()
@@ -119,15 +122,9 @@ while running:
 
     renderLabels()
 
-    if sport_mode is False:
-        eco_btn.draw()
-        if eco_btn.draw():
-            sport_mode = True
-    else:
-        sport_btn.draw()
-        if sport_btn.draw():
-            print("elo")
-            sport_mode = False
+    if sport_btn.draw():
+        print("elo")
+        sport_mode = False
 
     if end_btn.draw():
         running = False

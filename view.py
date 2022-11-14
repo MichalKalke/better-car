@@ -20,6 +20,9 @@ sport = pg.image.load('images/sport.png')
 eco = pg.image.load('images/eco.png')
 st = pg.image.load('images/stS.png')
 
+# mode
+sport_mode = True
+
 # colors
 white = (255,255,255)
 
@@ -86,6 +89,20 @@ class Button:
 
         return action
 
+    def update_image(self):
+        if sport_mode is False:
+            sport_mode = True
+            image = sport
+        else:
+            sport_mode = False
+            image = eco
+
+        width_img = image.get_width()
+        height_img = image.get_height()
+        window.blit(background, (self.rect.x, self.rect.y))
+        self.image = pg.transform.scale(image, (int(width_img), int(height_img)))
+        window.blit(self.image, (self.rect.x, self.rect.y))
+
 
 # button instances
 end_btn = Button(end, 750, 50, 0.8)
@@ -115,16 +132,14 @@ def renderLabels():
     rpm.draw()
     st_label.draw()
 
-sport_mode = True
+
 # game loop
 running = True
 while running:
-
     renderLabels()
 
     if sport_btn.draw():
-        print("elo")
-        sport_mode = False
+        sport_btn.update_image()
 
     if end_btn.draw():
         running = False

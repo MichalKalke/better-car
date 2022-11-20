@@ -10,3 +10,4 @@ class Constants:
         self.resolution = j.resolution
         self.gears = j.gearChanging
         self.white = (255,255,255)
+        self.sport_mode = True

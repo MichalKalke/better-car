@@ -90,11 +90,11 @@ class Button:
         return action
 
     def update_image(self):
-        if sport_mode is False:
-            sport_mode = True
+        if const.sport_mode is False:
+            const.sport_mode = True
             image = sport
         else:
-            sport_mode = False
+            const.sport_mode = False
             image = eco
 
         width_img = image.get_width()
@@ -106,8 +106,7 @@ class Button:
 
 # button instances
 end_btn = Button(end, 750, 50, 0.8)
-sport_btn = Button(sport, 50, 50, 1)
-eco_btn = Button(eco, 50, 50, 1)
+mode_btn = Button(sport, 50, 50, 1)
 st_label = Button(st, 750, 440, 1)
 
 # label instances
@@ -138,8 +137,8 @@ running = True
 while running:
     renderLabels()
 
-    if sport_btn.draw():
-        sport_btn.update_image()
+    if mode_btn.draw():
+        mode_btn.update_image()
 
     if end_btn.draw():
         running = False

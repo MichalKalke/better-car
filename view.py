@@ -4,6 +4,8 @@ import pygame as pg
 import pygame.mouse
 from pygame import QUIT
 import constants as cnst
+import controller
+import asyncio
 
 pg.init()
 
@@ -93,6 +95,7 @@ class Button:
         if const.sport_mode is False:
             const.sport_mode = True
             image = sport
+
         else:
             const.sport_mode = False
             image = eco
@@ -134,19 +137,31 @@ def renderLabels():
 
 # game loop
 running = True
-while running:
-    renderLabels()
 
-    if mode_btn.draw():
-        mode_btn.update_image()
+#tmp
+tmp = 500
 
-    if end_btn.draw():
-        running = False
+def perfect_shifting():
+    global running
+    global tmp
+    while running:
+        renderLabels()
 
-    # event handler
-    for event in pg.event.get():
-        # quit game
-        if event.type == QUIT:
+        if mode_btn.draw():
+            mode_btn.update_image()
+            controller.pixel_signals(const.sport_mode)
+
+        if end_btn.draw():
+            controller.pixels_off()
             running = False
-    pg.display.update()
-pg.quit()
+
+
+        # event handler
+        for event in pg.event.get():
+            # quit game
+            if event.type == QUIT:
+                running = False
+        pg.display.update()
+    pg.quit()
+
+perfect_shifting()

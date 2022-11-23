@@ -1,22 +1,16 @@
 import board 
 import neopixel
 import time
+import constants as const
 
 pixel_pin = board.D18
 
-num_pixels = 60
-
-blue = (3, 173, 252)
-red = (237, 28, 36)
-green = (3, 155, 0)
-off = (0,0,0)
-
 pixels = neopixel.NeoPixel(
-    pixel_pin, num_pixels, brightness=0.3
+    pixel_pin, const.num_pixels, brightness=0.3
 )
 
 def pixels_off():
-    pixels.fill(off)
+    pixels.fill(const.off)
 
 def fill_pixels(color):
     pixels_off()
@@ -28,11 +22,11 @@ def fill_pixels(color):
     pixels[3] = color
     time.sleep(2)
     pixels_off()
-    pixels[1] = blue
+    pixels[1] = const.blue
 
 def pixel_signals(sport_mode):
     if sport_mode is True:
-        fill_pixels(red)
+        fill_pixels(const.red)
     else:
-        fill_pixels(green)
+        fill_pixels(const.green)
 

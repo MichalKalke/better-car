@@ -5,11 +5,21 @@ import pygame.mouse
 from pygame import QUIT
 import constants as cnst
 import controller
-import asyncio
+import time
 
 pg.init()
 
 const = cnst.Constants()
+car = cnst.Car_data()
+
+controller.set_const(const)
+controller.set_car_data(car)
+
+# Connect obd
+controller.obdThread()
+
+while not const.obd_ready:
+    time.sleep(.01)
 
 window = pg.display.set_mode((const.resolution.width, const.resolution.height), pg.FULLSCREEN)
 
@@ -115,13 +125,13 @@ st_label = Button(st, 750, 440, 1)
 # label instances
 test = Label("Switch mode", 20, 20, white, None, None)
 engineLoadLabel = Label("Engine load", 470, 350, const.white, None, True, 57)
-engineLoad = Label(str(53) + " %", 580, 290, white, None, None)
+engineLoad = Label(str(car.engine_load) + " %", 580, 290, white, None, None)
 acceleratorLabel = Label("accelerator", 470, 170, white, None, True, 67)
-accelerator = Label(str(60)+ " %", 580, 110, white, None, None)
+accelerator = Label(str(car.accelerator)+ " %", 580, 110, white, None, None)
 turbochargerTempLabel = Label("Turbocharger", 40, 350, white, None, True)
 turbochargerTemp = Label(str(80) + " °C", 150, 290, white, None, None)
 rpmLabel = Label("RPM", 40, 170, white, None, True, 195)
-rpm = Label(str(2500), 140, 110, white, None, None)
+rpm = Label(str(car.rpm), 140, 110, white, None, None)
 
 def renderLabels():
     engineLoadLabel.draw()

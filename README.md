@@ -22,7 +22,7 @@ Zadania zrobione:
 Zadania do zrobienia
 - [ ] Obsługa logiki LED'ów
 - [x] Obsługa LED'ów bez sudo -gpio 10 (MOSI) SPI
-- [ ] Obsługa LED'ów w wątku
+- [x] Obsługa LED'ów w wątku
 - [ ] Poprawa gui by się ładnie renderowało
 - [ ] Zależność między obciążeniem silnika, a zużyciem paliwa
 - [ ] Pogadać z Maxem

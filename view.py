@@ -18,6 +18,9 @@ controller.set_car_data(car)
 # Connect obd
 controller.obdThread()
 
+# use led asyc
+led = controller.ledThread()
+
 #while not const.obd_ready:
 time.sleep(1)
 
@@ -69,8 +72,12 @@ class Label:
             label = box_surf
 
         #render nothing first
-        label2 = pygame.Surface(label.get_rect().inflate(self.inflate_x, self.inflate_y).size).convert_alpha()
-        window.blit(background, (self.x, self.y))
+        #label2 = pygame.Surface(label.get_rect().inflate(self.inflate_x, self.inflate_y).size).convert_alpha()
+        #window.blit(background, (self.x, self.y))
+        #label2 = font.render(self.text, False, (0,0,0,1))
+        #window.blit(label2, (self.x, self.y))
+        label2 = font.render("        ", True, self.color)
+        window.blit(label2, (self.x, self.y))
         window.blit(label, (self.x, self.y))
 
 
@@ -130,21 +137,21 @@ test = Label("Switch mode", 20, 20, white, None, None)
 engineLoadLabel = Label("Engine load", 470, 350, const.white, None, True, 57)
 #engineLoad = Label(str(car.engine_load) + " %", 580, 290, white, None, None)
 acceleratorLabel = Label("accelerator", 470, 170, white, None, True, 67)
-accelerator = Label(str(car.accelerator)+ " %", 580, 110, white, None, None)
+#accelerator = Label(str(car.accelerator)+ " %", 580, 110, white, None, None)
 turbochargerTempLabel = Label("Turbocharger", 40, 350, white, None, True)
 turbochargerTemp = Label(str(80) + " °C", 150, 290, white, None, None)
 rpmLabel = Label("RPM", 40, 170, white, None, True, 195)
-rpm = Label(str(car.rpm), 140, 110, white, None, None)
+#rpm = Label(str(car.rpm), 140, 110, white, None, None)
 
 def renderLabels():
     engineLoadLabel.draw()
     #engineLoad.draw()
     acceleratorLabel.draw()
-    accelerator.draw()
+    #accelerator.draw()
     turbochargerTempLabel.draw()
     turbochargerTemp.draw()
     rpmLabel.draw()
-    rpm.draw()
+    #rpm.draw()
     st_label.draw()
 
 
@@ -158,16 +165,21 @@ def perfect_shifting():
     global running
     global tmp
     while running:
+        window.blit(background, (0, 0))
         renderLabels()
-        engineLoad = Label(str(car.rpm) + " %", 580, 290, white, None, None)
+        #engineLoad = Label(str(car.rpm) + " %", 580, 290, white, None, None)
 
-        engineLoad.draw()
+        #engineLoad.draw()
         if mode_btn.draw():
             mode_btn.update_image()
+            rpmLabel = Label("OOO", 40, 170, white, None, True, 195)
+            rpmLabel.draw()
             #controller.pixel_signals(const.sport_mode)
 
         if end_btn.draw():
-            controller.pixels_off()
+            led.pixels_off()
+            const.thread_kill = True
+            led.pixels_off()
             running = False
 
 

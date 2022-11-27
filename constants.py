@@ -16,6 +16,7 @@ class Constants:
         self.off = (0,0,0)
         self.obd_ready = False
         self.sport_mode = True
+        self.thread_kill = False
     
     def set_obd_ready(self,r):
         self.obd_ready = r
@@ -38,3 +39,6 @@ class Car_data:
 
     def new_rpm(self, r):
         self.rpm = int(r.value.magnitude)
+
+    def new_rm(self, r):
+        self.rpm = r

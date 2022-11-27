@@ -8,7 +8,7 @@ import obd
 const = None
 car_data = None
 
-pixel_pin = board.D18
+pixel_pin = board.D10
 num_pixels = 60
 
 def set_const(obj):
@@ -23,26 +23,44 @@ pixels = neopixel.NeoPixel(
     pixel_pin, num_pixels, brightness=0.3
 )
 
-def pixels_off():
-    pixels.fill(const.off)
+class ledThread(Thread):
+    def __init__(self):
+        Thread.__init__(self)
+        self.daemon = True
+        self.start()
 
-def fill_pixels(color):
-    pixels_off()
-    pixels[0] = color
-    time.sleep(1)
-    pixels[1] = color
-    time.sleep(1)
-    pixels[2] = color
-    pixels[3] = color
-    time.sleep(2)
-    pixels_off()
-    pixels[1] = const.blue
+    def run(self):
+        global car_data
+        global const
+        while True:
+            if const.thread_kill is True:
+                break
+            if(car_data.rpm > 10):
+                self.pixel_signals(const.sport_mode)
 
-def pixel_signals(sport_mode):
-    if sport_mode is True:
-        fill_pixels(const.red)
-    else:
-        fill_pixels(const.green)
+    def pixels_off(self):
+        pixels.fill(const.off)
+
+    def fill_pixels(self, color):
+        self.pixels_off()
+        pixels[0] = color
+        time.sleep(1)
+        pixels[1] = color
+        time.sleep(1)
+        pixels[2] = color
+        pixels[3] = color
+        time.sleep(2)
+        self.pixels_off()
+
+    def pixel_signals(self, sport_mode):
+        if sport_mode is True:
+            self.fill_pixels(const.red)
+        else:
+            self.fill_pixels(const.green)
+
+  
+
+
 
 
 class obdThread(Thread):
@@ -55,17 +73,19 @@ class obdThread(Thread):
         global car_data
         global const
 
+        time.sleep(5)
+        car_data.new_rm(100)
         #obd.logger.setLevel(obd.logging.DEBUG)
 
-        car_data.connection = obd.Async("/dev/ttyUSB0")
+        #car_data.connection = obd.Async("/dev/ttyUSB0")
 
-        car_data.connection.watch(obd.commands.ENGINE_LOAD, callback=car_data.new_engine_load)
-        car_data.connection.watch(obd.commands.THROTTLE_POS, callback=car_data.new_accelerator)
-        car_data.connection.watch(obd.commands.RPM, callback=car_data.new_rpm)
+        #car_data.connection.watch(obd.commands.ENGINE_LOAD, callback=car_data.new_engine_load)
+        #car_data.connection.watch(obd.commands.THROTTLE_POS, callback=car_data.new_accelerator)
+        #car_data.connection.watch(obd.commands.RPM, callback=car_data.new_rpm)
 
-        car_data.connection.start()
+        #car_data.connection.start()
 
-        const.set_obd_ready(True)
+        #const.set_obd_ready(True)
         
 
     

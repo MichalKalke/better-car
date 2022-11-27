@@ -1,6 +1,8 @@
 # better-car
 ## Plan inżynierki - małe zadanka na 1 posiedzenie
 
+Zadania zrobione:
+
 - [x] Zamówienie ładowarki samochodowej i LED'ów
 - [x] Umówienie się na hamownie
 - [x] Złożenie projektu - bez ledów
@@ -13,7 +15,14 @@
 - [x] Stworzenie prostego frontu w celu wizualizacji danych
 - [x] Dodanie zamówionych elementów
 - [x] Ładowanie danych z pliku na temat idealnej zmiany biegów 
-- [ ] Obsługa logiki LED'ów
 - [x] Znalezienie wzoru do ECO jazdy - z wykresu z hamowni
 - [x] ~~Stworzenie 2 plików wykonywalnych w zależności od wybranego modu~~ zrobione w jednym
 - [ ] ~~Zastanowić się nad stworzeniem własnej biblioteki pyOBD~~
+
+Zadania do zrobienia
+- [ ] Obsługa logiki LED'ów
+- [ ] Obsługa LED'ów bez sudo
+- [ ] Obsługa LED'ów w wątku
+- [ ] Poprawa gui by się ładnie renderowało
+- [ ] Zależność między obciążeniem silnika, a zużyciem paliwa
+- [ ] Pogadać z Maxem

@@ -24,5 +24,5 @@ Zadania do zrobienia
 - [x] Obsługa LED'ów bez sudo -gpio 10 (MOSI) SPI
 - [x] Obsługa LED'ów w wątku
 - [ ] Poprawa gui by się ładnie renderowało
-- [ ] Zależność między obciążeniem silnika, a zużyciem paliwa
+- [ ] ~~Zależność między obciążeniem silnika, a zużyciem paliwa~~ to jest granica bezpieczna silnika
 - [ ] Pogadać z Maxem

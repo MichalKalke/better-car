@@ -35,9 +35,6 @@ sport = pg.image.load('images/sport.png')
 eco = pg.image.load('images/eco.png')
 st = pg.image.load('images/stS.png')
 
-# mode
-sport_mode = True
-
 # colors
 white = (255,255,255)
 
@@ -71,13 +68,6 @@ class Label:
             box_surf.blit(label, label.get_rect(center=box_surf.get_rect().center))
             label = box_surf
 
-        #render nothing first
-        #label2 = pygame.Surface(label.get_rect().inflate(self.inflate_x, self.inflate_y).size).convert_alpha()
-        #window.blit(background, (self.x, self.y))
-        #label2 = font.render(self.text, False, (0,0,0,1))
-        #window.blit(label2, (self.x, self.y))
-        label2 = font.render("        ", True, self.color)
-        window.blit(label2, (self.x, self.y))
         window.blit(label, (self.x, self.y))
 
 
@@ -133,23 +123,18 @@ mode_btn = Button(sport, 50, 50, 1)
 st_label = Button(st, 750, 440, 1)
 
 # label instances
-test = Label("Switch mode", 20, 20, white, None, None)
-engineLoadLabel = Label("Engine load", 470, 350, const.white, None, True, 57)
-#engineLoad = Label(str(car.engine_load) + " %", 580, 290, white, None, None)
-acceleratorLabel = Label("accelerator", 470, 170, white, None, True, 67)
-#accelerator = Label(str(car.accelerator)+ " %", 580, 110, white, None, None)
-turbochargerTempLabel = Label("Turbocharger", 40, 350, white, None, True)
-turbochargerTemp = Label(str(80) + " °C", 150, 290, white, None, None)
-rpmLabel = Label("RPM", 40, 170, white, None, True, 195)
-#rpm = Label(str(car.rpm), 140, 110, white, None, None)
+engineLoadLabel = Label("Engine load", 470, 350, const.white, None, True, 27)
+throttleLabel = Label("Throttle", 470, 170, white, None, True, 104)
+oilTempLabel = Label("Oil", 40, 350, white, None, True, 205)
+rpmLabel = Label("RPM", 40, 170, white, None, True, 165)
 
 def renderLabels():
     engineLoadLabel.draw()
     #engineLoad.draw()
-    acceleratorLabel.draw()
-    #accelerator.draw()
-    turbochargerTempLabel.draw()
-    turbochargerTemp.draw()
+    throttleLabel.draw()
+    #throttle.draw()
+    oilTempLabel.draw()
+    #oilTemp.draw()
     rpmLabel.draw()
     #rpm.draw()
     st_label.draw()
@@ -167,14 +152,17 @@ def perfect_shifting():
     while running:
         window.blit(background, (0, 0))
         renderLabels()
-        #engineLoad = Label(str(car.rpm) + " %", 580, 290, white, None, None)
+        engineLoad = Label(str(car.engine_load) + " %", 580, 290, white, None, None)
+        throttle = Label(str(car.throttle)+ " %", 580, 110, white, None, None)
+        oilTemp = Label(str(80) + " °C", 150, 290, white, None, None)
+        rpm = Label(str(car.rpm), 140, 110, white, None, None)
+        engineLoad.draw()
+        throttle.draw()
+        oilTemp.draw()
+        rpm.draw()
 
-        #engineLoad.draw()
         if mode_btn.draw():
             mode_btn.update_image()
-            rpmLabel = Label("OOO", 40, 170, white, None, True, 195)
-            rpmLabel.draw()
-            #controller.pixel_signals(const.sport_mode)
 
         if end_btn.draw():
             led.pixels_off()

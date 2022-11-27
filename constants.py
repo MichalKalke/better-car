@@ -25,8 +25,8 @@ class Constants:
 class Car_data:
     def __init__(self):
         self.engine_load = 0
-        self.accelerator = 0
-        self.turbocharger_temp = 0
+        self.throttle = 0
+        self.oil_temp = 0
         self.rpm = 0
         self.connection = None
 
@@ -34,11 +34,11 @@ class Car_data:
         #print(r.value)
         self.engine_load = int(r.value.magnitude)
 
-    def new_accelerator(self, r):
-        self.accelerator = int(r.value.magnitude)
+    def new_throttle(self, r):
+        self.throttle = int(r.value.magnitude)
+
+    def new_oil_temp(self, r):
+        self.oil_temp = int(r.value.magnitude)
 
     def new_rpm(self, r):
         self.rpm = int(r.value.magnitude)
-
-    def new_rm(self, r):
-        self.rpm = r

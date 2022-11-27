@@ -73,19 +73,20 @@ class obdThread(Thread):
         global car_data
         global const
 
-        time.sleep(5)
-        car_data.new_rm(100)
+        #time.sleep(5)
+        #car_data.new_rm(100)
         #obd.logger.setLevel(obd.logging.DEBUG)
 
-        #car_data.connection = obd.Async("/dev/ttyUSB0")
+        car_data.connection = obd.Async("/dev/ttyUSB0", 115200, "3")
 
-        #car_data.connection.watch(obd.commands.ENGINE_LOAD, callback=car_data.new_engine_load)
-        #car_data.connection.watch(obd.commands.THROTTLE_POS, callback=car_data.new_accelerator)
-        #car_data.connection.watch(obd.commands.RPM, callback=car_data.new_rpm)
+        car_data.connection.watch(obd.commands.ENGINE_LOAD, callback=car_data.new_engine_load)
+        car_data.connection.watch(obd.commands.THROTTLE_POS, callback=car_data.new_throttle)
+        car_data.connection.watch(obd.commands.OIL_TEMP, callback=car_data.new_oil_temp)
+        car_data.connection.watch(obd.commands.RPM, callback=car_data.new_rpm)
 
-        #car_data.connection.start()
+        car_data.connection.start()
 
-        #const.set_obd_ready(True)
+        const.set_obd_ready(True)
         
 
     

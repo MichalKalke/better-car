@@ -18,8 +18,8 @@ controller.set_car_data(car)
 # Connect obd
 controller.obdThread()
 
-while not const.obd_ready:
-    time.sleep(.01)
+#while not const.obd_ready:
+time.sleep(1)
 
 window = pg.display.set_mode((const.resolution.width, const.resolution.height), pg.FULLSCREEN)
 
@@ -68,6 +68,9 @@ class Label:
             box_surf.blit(label, label.get_rect(center=box_surf.get_rect().center))
             label = box_surf
 
+        #render nothing first
+        label2 = pygame.Surface(label.get_rect().inflate(self.inflate_x, self.inflate_y).size).convert_alpha()
+        window.blit(background, (self.x, self.y))
         window.blit(label, (self.x, self.y))
 
 
@@ -125,7 +128,7 @@ st_label = Button(st, 750, 440, 1)
 # label instances
 test = Label("Switch mode", 20, 20, white, None, None)
 engineLoadLabel = Label("Engine load", 470, 350, const.white, None, True, 57)
-engineLoad = Label(str(car.engine_load) + " %", 580, 290, white, None, None)
+#engineLoad = Label(str(car.engine_load) + " %", 580, 290, white, None, None)
 acceleratorLabel = Label("accelerator", 470, 170, white, None, True, 67)
 accelerator = Label(str(car.accelerator)+ " %", 580, 110, white, None, None)
 turbochargerTempLabel = Label("Turbocharger", 40, 350, white, None, True)
@@ -135,7 +138,7 @@ rpm = Label(str(car.rpm), 140, 110, white, None, None)
 
 def renderLabels():
     engineLoadLabel.draw()
-    engineLoad.draw()
+    #engineLoad.draw()
     acceleratorLabel.draw()
     accelerator.draw()
     turbochargerTempLabel.draw()
@@ -156,10 +159,12 @@ def perfect_shifting():
     global tmp
     while running:
         renderLabels()
+        engineLoad = Label(str(car.rpm) + " %", 580, 290, white, None, None)
 
+        engineLoad.draw()
         if mode_btn.draw():
             mode_btn.update_image()
-            controller.pixel_signals(const.sport_mode)
+            #controller.pixel_signals(const.sport_mode)
 
         if end_btn.draw():
             controller.pixels_off()

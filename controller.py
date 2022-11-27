@@ -55,7 +55,7 @@ class obdThread(Thread):
         global car_data
         global const
 
-        obd.logger.setLevel(obd.logging.DEBUG)
+        #obd.logger.setLevel(obd.logging.DEBUG)
 
         car_data.connection = obd.Async("/dev/ttyUSB0")
 

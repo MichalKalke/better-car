@@ -16,6 +16,9 @@ class Constants:
         self.off = (0,0,0)
         self.obd_ready = False
         self.sport_mode = True
+    
+    def set_obd_ready(self,r):
+        self.obd_ready = r
 
 
 class Car_data:
@@ -27,6 +30,7 @@ class Car_data:
         self.connection = None
 
     def new_engine_load(self, r):
+        #print(r.value)
         self.engine_load = int(r.value.magnitude)
 
     def new_accelerator(self, r):

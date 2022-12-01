@@ -19,7 +19,7 @@ controller.set_car_data(car)
 controller.obdThread()
 
 # use led asyc
-led = controller.ledThread()
+#led = controller.ledThread()
 
 #while not const.obd_ready:
 time.sleep(1)
@@ -154,7 +154,7 @@ def perfect_shifting():
         renderLabels()
         engineLoad = Label(str(car.engine_load) + " %", 580, 290, white, None, None)
         throttle = Label(str(car.throttle)+ " %", 580, 110, white, None, None)
-        oilTemp = Label(str(80) + " °C", 150, 290, white, None, None)
+        oilTemp = Label(str(car.oil_temp) + " °C", 150, 290, white, None, None)
         rpm = Label(str(car.rpm), 140, 110, white, None, None)
         engineLoad.draw()
         throttle.draw()
@@ -165,9 +165,9 @@ def perfect_shifting():
             mode_btn.update_image()
 
         if end_btn.draw():
-            led.pixels_off()
+            #led.pixels_off()
             const.thread_kill = True
-            led.pixels_off()
+            #led.pixels_off()
             running = False
 
 

@@ -35,7 +35,7 @@ class ledThread(Thread):
         while True:
             if const.thread_kill is True:
                 break
-            if(car_data.rpm > 10):
+            if(car_data.rpm > 2000):
                 self.pixel_signals(const.sport_mode)
 
     def pixels_off(self):
@@ -77,9 +77,10 @@ class obdThread(Thread):
         #car_data.new_rm(100)
         #obd.logger.setLevel(obd.logging.DEBUG)
 
-        car_data.connection = obd.Async("/dev/ttyUSB0", 115200, "3")
+        car_data.connection = obd.Async("/dev/ttyUSB0")
 
-        car_data.connection.watch(obd.commands.ENGINE_LOAD, callback=car_data.new_engine_load)
+        #car_data.connection.watch(obd.commands.ENGINE_LOAD, callback=car_data.new_engine_load)
+        car_data.connection.watch(obd.commands.INTAKE_PRESSURE, callback=car_data.new_engine_load)
         car_data.connection.watch(obd.commands.THROTTLE_POS, callback=car_data.new_throttle)
         car_data.connection.watch(obd.commands.OIL_TEMP, callback=car_data.new_oil_temp)
         car_data.connection.watch(obd.commands.RPM, callback=car_data.new_rpm)

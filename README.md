@@ -28,3 +28,8 @@ Zadania do zrobienia
 - [x] Pogadać z Maxem
 - [ ] Tryb sportowy - pole pod całką mocy + przełożenia
 - [ ] Tryb eco do bezpiecznego pułapu + dla jazdy 40% throttle
+
+Dane
+- Bezpieczne ramy silnika: 1800rpm
+- Gear ratio: 
+

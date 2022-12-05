@@ -20,7 +20,7 @@ def set_car_data(obj):
     car_data = obj
 
 pixels = neopixel.NeoPixel(
-    pixel_pin, num_pixels, brightness=0.3
+    pixel_pin, num_pixels, brightness=0.2
 )
 
 class ledThread(Thread):
@@ -52,9 +52,27 @@ class ledThread(Thread):
         time.sleep(2)
         self.pixels_off()
 
+    def blink(self, how_many):
+        i = 0
+        while i < how_many:
+            pixels.fill(const.red)
+            time.sleep(0.1)
+            self.pixels_off()
+            time.sleep(0.1)
+            i= i+1
+     
+
+    def sport(self):
+        if (car_data.rpm > 3000 and car_data.oil_temp < 40) or (car_data.rpm > 4500 and car_data.oil_temp < 80):
+            self.blink(2)
+        else:
+             pixels.fill((122,122,122))
+             time.sleep(0.1)
+             self.pixels_off() 
+
     def pixel_signals(self, sport_mode):
         if sport_mode is True:
-            self.fill_pixels(const.red)
+            self.sport()
         else:
             self.fill_pixels(const.green)
 
@@ -73,21 +91,32 @@ class obdThread(Thread):
         global car_data
         global const
 
-        #time.sleep(5)
-        #car_data.new_rm(100)
+        time.sleep(2)
+        car_data.new_rpm2(4000)
+        time.sleep(2)
+        car_data.new_rpm2(2000)
+        time.sleep(5)
+        car_data.new_oil_temp2(45)
+        car_data.new_rpm2(4000)
+        time.sleep(2)
+        car_data.new_rpm2(4700)
+        time.sleep(2)
+        car_data.new_oil_temp2(85)
+        time.sleep(7)
+        car_data.new_rpm2(6700)
         #obd.logger.setLevel(obd.logging.DEBUG)
 
-        car_data.connection = obd.Async("/dev/ttyUSB0")
+        #car_data.connection = obd.Async("/dev/ttyUSB0")
 
         #car_data.connection.watch(obd.commands.ENGINE_LOAD, callback=car_data.new_engine_load)
-        car_data.connection.watch(obd.commands.INTAKE_PRESSURE, callback=car_data.new_engine_load)
-        car_data.connection.watch(obd.commands.THROTTLE_POS, callback=car_data.new_throttle)
-        car_data.connection.watch(obd.commands.OIL_TEMP, callback=car_data.new_oil_temp)
-        car_data.connection.watch(obd.commands.RPM, callback=car_data.new_rpm)
+        #car_data.connection.watch(obd.commands.INTAKE_PRESSURE, callback=car_data.new_engine_load)
+        #car_data.connection.watch(obd.commands.THROTTLE_POS, callback=car_data.new_throttle)
+        #car_data.connection.watch(obd.commands.OIL_TEMP, callback=car_data.new_oil_temp)
+        #car_data.connection.watch(obd.commands.RPM, callback=car_data.new_rpm)
 
-        car_data.connection.start()
+        #car_data.connection.start()
 
-        const.set_obd_ready(True)
+        #const.set_obd_ready(True)
         
 
     

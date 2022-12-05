@@ -42,3 +42,9 @@ class Car_data:
 
     def new_rpm(self, r):
         self.rpm = int(r.value.magnitude)
+
+    def new_rpm2(self, r):
+        self.rpm = r
+
+    def new_oil_temp2(self, r):
+        self.oil_temp = r

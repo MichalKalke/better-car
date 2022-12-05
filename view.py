@@ -19,7 +19,7 @@ controller.set_car_data(car)
 controller.obdThread()
 
 # use led asyc
-#led = controller.ledThread()
+led = controller.ledThread()
 
 #while not const.obd_ready:
 time.sleep(1)

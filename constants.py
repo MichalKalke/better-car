@@ -9,7 +9,8 @@ class Constants:
         f.close()
         self.resolution = j.resolution
         self.gears = j.gearDown
-        print(self.gears.up[1])
+        self.gears_eco = j.gearUp
+        print(self.gears_eco.g2)
         self.white = (255,255,255)
         self.blue = (3, 173, 252)
         self.red = (237, 28, 36)
@@ -17,7 +18,7 @@ class Constants:
         self.yellow = (255, 255, 0)
         self.purple = (104, 51, 168)
         self.off = (0,0,0)
-        self.sport_mode = True
+        self.sport_mode = False
         self.thread_kill = False
 
 class Car_data:

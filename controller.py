@@ -36,7 +36,7 @@ class ledThread(Thread):
         while True:
             if const.thread_kill is True:
                 break
-            if(car_data.rpm > 2000):
+            if(car_data.rpm > 1500):
                 self.pixel_signals(const.sport_mode)
 
     def pixels_off(self):
@@ -84,7 +84,6 @@ class ledThread(Thread):
 
 
     def gear_up(self, color):
-        print("up")
         pixels[2] = color
         pixels[3] =  color
         time.sleep(1)
@@ -92,7 +91,6 @@ class ledThread(Thread):
 
 
     def normal(self):
-        print(car_data.rpm)
         if(car_data.rpm > 3500):
             self.gear_up(const.purple)
         if(car_data.rpm < 2000):
@@ -102,6 +100,7 @@ class ledThread(Thread):
     def calculate_gear(self):
         global gear
         tmp = (car_data.speed / car_data.rpm) * 100
+        print(tmp)
         if tmp > 0.5 and tmp < 0.9:
             gear = 1
         elif tmp > 1.1 and tmp < 1.6:
@@ -155,6 +154,48 @@ class ledThread(Thread):
                 self.gear_up_sport()
 
 
+    def eco(self):
+        global gear
+        self.calculate_gear()
+        if gear == 1:
+            if car_data.rpm > const.gears_eco.g1:
+                self.gear_up(const.green)
+            elif car_data.rpm < const.gears_eco.down:
+                self.gear_down(const.yellow)
+
+        if gear == 2:
+            if car_data.rpm > const.gears_eco.g2:
+                self.gear_up(const.green)
+            elif car_data.rpm < const.gears_eco.down:
+                self.gear_down(const.yellow)
+
+
+        if gear == 3:
+            if car_data.rpm > const.gears_eco.g3:
+                self.gear_up(const.green)
+            elif car_data.rpm < const.gears_eco.down:
+                self.gear_down(const.yellow)
+
+
+        if gear == 4:
+            if car_data.rpm > const.gears_eco.g4:
+                self.gear_up(const.green)
+            elif car_data.rpm < const.gears_eco.down:
+                self.gear_down(const.yellow)
+
+
+        if gear == 5:
+            if car_data.rpm > const.gears_eco.g5:
+                self.gear_up(const.green)
+            elif car_data.rpm < const.gears_eco.down:
+                self.gear_down(const.yellow)
+
+
+        if gear == 6:
+            if car_data.rpm < const.gears_eco.down:
+                self.gear_down(const.yellow)
+
+
     def sport_controller(self):
         if (car_data.rpm > 3000 and car_data.oil_temp < 40) or (car_data.rpm > 4500 and car_data.oil_temp < 80):
             self.blink(2)
@@ -164,15 +205,20 @@ class ledThread(Thread):
              else:
                 self.normal()
 
+    def eco_controller(self):
+        if car_data.throttle <= 30:
+            self.eco()
+        else:
+            self.normal()
                 
     def pixel_signals(self, sport_mode):
         if sport_mode is True:
             self.sport_controller()
         else:
-            self.fill_pixels(const.green)
+            self.eco_controller()
 
 
-            
+
 class obdThread(Thread):
     def __init__(self):
         Thread.__init__(self)
@@ -193,32 +239,45 @@ class obdThread(Thread):
         # time.sleep(2)
         # car_data.new_rpm2(4700)
         # time.sleep(2)
-        car_data.new_oil_temp2(85)
-        car_data.new_throttle2(85)
-        time.sleep(1)
-        # gear 4 2,700
-        car_data.new_speed2(138)
-        car_data.new_rpm2(5100)
-        time.sleep(2)
-        car_data.new_speed2(151)
-        car_data.new_rpm2(5600)
-        time.sleep(2)
-        car_data.new_speed2(162)
-        car_data.new_rpm2(6000)
-        time.sleep(2)
-        car_data.new_speed2(172)
-        car_data.new_rpm2(6400)
-        time.sleep(2)
-        car_data.new_throttle2(50)
-        # car_data.new_speed2(176)
-        # car_data.new_rpm2(6500)
+        # test sporta
+        # car_data.new_oil_temp2(85)
+        # car_data.new_throttle2(85)
+        # time.sleep(1)
+        # # gear 4 2,700
+        # car_data.new_speed2(138)
+        # car_data.new_rpm2(5100)
+        # time.sleep(2)
+        # car_data.new_speed2(151)
+        # car_data.new_rpm2(5600)
+        # time.sleep(2)
+        # car_data.new_speed2(162)
+        # car_data.new_rpm2(6000)
+        # time.sleep(2)
+        # car_data.new_speed2(172)
+        # car_data.new_rpm2(6400)
+        # time.sleep(2)
+        # car_data.new_throttle2(50)
+        # # car_data.new_speed2(176)
+        # # car_data.new_rpm2(6500)
+        # # time.sleep(4)
+        # car_data.new_speed2(97)
+        # car_data.new_rpm2(3600)
         # time.sleep(4)
-        car_data.new_speed2(97)
-        car_data.new_rpm2(3600)
-        time.sleep(4)
-        car_data.new_speed2(48)
-        car_data.new_rpm2(1800)
+        # car_data.new_speed2(48)
+        # car_data.new_rpm2(1800)
 
+        #test eco
+        car_data.new_oil_temp2(85)
+        car_data.new_throttle2(25)
+       # time.sleep(5)
+        # car_data.new_speed2(47)
+        # car_data.new_rpm2(2470)
+        # time.sleep(3)
+        # car_data.new_speed2(61)
+        # car_data.new_rpm2(2300)
+        # time.sleep(4)
+        car_data.new_speed2(13)
+        car_data.new_rpm2(1700)
 
         #obd.logger.setLevel(obd.logging.DEBUG)
 

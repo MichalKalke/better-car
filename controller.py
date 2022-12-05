@@ -267,31 +267,31 @@ class obdThread(Thread):
         # car_data.new_rpm2(1800)
 
         #test eco
-        car_data.new_oil_temp2(85)
-        car_data.new_throttle2(25)
-       # time.sleep(5)
-        # car_data.new_speed2(47)
-        # car_data.new_rpm2(2470)
-        # time.sleep(3)
-        # car_data.new_speed2(61)
-        # car_data.new_rpm2(2300)
-        # time.sleep(4)
-        car_data.new_speed2(13)
-        car_data.new_rpm2(1700)
+    #     car_data.new_oil_temp2(85)
+    #     car_data.new_throttle2(25)
+    #    # time.sleep(5)
+    #     # car_data.new_speed2(47)
+    #     # car_data.new_rpm2(2470)
+    #     # time.sleep(3)
+    #     # car_data.new_speed2(61)
+    #     # car_data.new_rpm2(2300)
+    #     # time.sleep(4)
+    #     car_data.new_speed2(13)
+    #     car_data.new_rpm2(1700)
 
         #obd.logger.setLevel(obd.logging.DEBUG)
 
-        # car_data.connection = obd.Async("/dev/ttyUSB0")
+        car_data.connection = obd.Async("/dev/ttyUSB0")
 
-        # #car_data.connection.watch(obd.commands.ENGINE_LOAD, callback=car_data.new_engine_load)
-        # car_data.connection.watch(obd.commands.SPEED, callback=car_data.new_engine_load)
-        # #car_data.connection.watch(obd.commands.INTAKE_PRESSURE, callback=car_data.new_engine_load)
-        # car_data.connection.watch(obd.commands.THROTTLE_POS, callback=car_data.new_throttle)
-        # car_data.connection.watch(obd.commands.OIL_TEMP, callback=car_data.new_oil_temp)
-        # car_data.connection.watch(obd.commands.RPM, callback=car_data.new_rpm)
-        # car_data.connection.watch(obd.commands.SPEED, callback=car_data.new_speed)
+        car_data.connection.watch(obd.commands.ENGINE_LOAD, callback=car_data.new_engine_load)
+        #car_data.connection.watch(obd.commands.SPEED, callback=car_data.new_engine_load)
+        #car_data.connection.watch(obd.commands.INTAKE_PRESSURE, callback=car_data.new_engine_load)
+        car_data.connection.watch(obd.commands.THROTTLE_POS, callback=car_data.new_throttle)
+        car_data.connection.watch(obd.commands.OIL_TEMP, callback=car_data.new_oil_temp)
+        car_data.connection.watch(obd.commands.RPM, callback=car_data.new_rpm)
+        car_data.connection.watch(obd.commands.SPEED, callback=car_data.new_speed)
 
-        # car_data.connection.start()
+        car_data.connection.start()
 
         
 

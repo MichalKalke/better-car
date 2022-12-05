@@ -31,5 +31,6 @@ Zadania do zrobienia
 
 Dane
 - Bezpieczne ramy silnika: 1800rpm
-- Gear ratio: 
+- Gear ratio: 3.417, 1.958, 1.276, 0.943, 0.757, 0.634
+- Final drive: 3.941
 

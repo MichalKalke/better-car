@@ -9,6 +9,7 @@ class Constants:
         f.close()
         self.resolution = j.resolution
         self.gears = j.gearDown
+        print(self.gears.up[1])
         self.white = (255,255,255)
         self.blue = (3, 173, 252)
         self.red = (237, 28, 36)
@@ -43,6 +44,11 @@ class Car_data:
     def new_speed(self, r):
         self.speed = int(r.value.magnitude)
 
+    def new_speed2(self, r):
+        self.speed = r
+
+    def new_throttle2(self, r):
+        self.throttle = r
     def new_rpm2(self, r):
         self.rpm = r
 

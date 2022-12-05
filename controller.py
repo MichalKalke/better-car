@@ -21,7 +21,7 @@ def set_car_data(obj):
     car_data = obj
 
 pixels = neopixel.NeoPixel(
-    pixel_pin, num_pixels, brightness=0.2
+    pixel_pin, num_pixels, brightness=0.05
 )
 
 class ledThread(Thread):
@@ -72,19 +72,33 @@ class ledThread(Thread):
             pixels[2] = const.purple
         if car_data.rpm > 6300:    
             pixels[3] = const.red
-        if car_data.rpm < 6450:
+        if car_data.rpm > 6450:
             self.blink(2)
-        
+       
 
     def gear_down(self, color):
         pixels[0] = color
         pixels[1] =  color
+        time.sleep(1)
+        self.pixels_off()
+
+
+    def gear_up(self, color):
+        print("up")
+        pixels[2] = color
+        pixels[3] =  color
+        time.sleep(1)
+        self.pixels_off()
+
 
     def normal(self):
-        if(car_data.rpm < 3500):
-            self.gear_up_sport()
+        print(car_data.rpm)
+        if(car_data.rpm > 3500):
+            self.gear_up(const.purple)
+        if(car_data.rpm < 2000):
+            self.gear_down(const.blue)
 
-    
+
     def calculate_gear(self):
         global gear
         tmp = (car_data.speed / car_data.rpm) * 100
@@ -104,9 +118,9 @@ class ledThread(Thread):
             gear = 0
 
 
-
     def sport(self):
         global gear
+        self.calculate_gear()
         if gear == 1:
                 self.gear_up_sport()
 
@@ -141,8 +155,6 @@ class ledThread(Thread):
                 self.gear_up_sport()
 
 
-
-
     def sport_controller(self):
         if (car_data.rpm > 3000 and car_data.oil_temp < 40) or (car_data.rpm > 4500 and car_data.oil_temp < 80):
             self.blink(2)
@@ -153,19 +165,14 @@ class ledThread(Thread):
                 self.normal()
 
                 
-
-
     def pixel_signals(self, sport_mode):
         if sport_mode is True:
             self.sport_controller()
         else:
             self.fill_pixels(const.green)
 
-  
 
-
-
-
+            
 class obdThread(Thread):
     def __init__(self):
         Thread.__init__(self)
@@ -176,19 +183,43 @@ class obdThread(Thread):
         global car_data
         global const
 
-        time.sleep(2)
-        car_data.new_rpm2(4000)
-        time.sleep(2)
-        car_data.new_rpm2(2000)
-        time.sleep(5)
-        car_data.new_oil_temp2(45)
-        car_data.new_rpm2(4000)
-        time.sleep(2)
-        car_data.new_rpm2(4700)
-        time.sleep(2)
+        # time.sleep(2)
+        # car_data.new_rpm2(4000)
+        # time.sleep(2)
+        # car_data.new_rpm2(2000)
+        # time.sleep(5)
+        # car_data.new_oil_temp2(45)
+        # car_data.new_rpm2(4000)
+        # time.sleep(2)
+        # car_data.new_rpm2(4700)
+        # time.sleep(2)
         car_data.new_oil_temp2(85)
-        time.sleep(7)
-        car_data.new_rpm2(6700)
+        car_data.new_throttle2(85)
+        time.sleep(1)
+        # gear 4 2,700
+        car_data.new_speed2(138)
+        car_data.new_rpm2(5100)
+        time.sleep(2)
+        car_data.new_speed2(151)
+        car_data.new_rpm2(5600)
+        time.sleep(2)
+        car_data.new_speed2(162)
+        car_data.new_rpm2(6000)
+        time.sleep(2)
+        car_data.new_speed2(172)
+        car_data.new_rpm2(6400)
+        time.sleep(2)
+        car_data.new_throttle2(50)
+        # car_data.new_speed2(176)
+        # car_data.new_rpm2(6500)
+        # time.sleep(4)
+        car_data.new_speed2(97)
+        car_data.new_rpm2(3600)
+        time.sleep(4)
+        car_data.new_speed2(48)
+        car_data.new_rpm2(1800)
+
+
         #obd.logger.setLevel(obd.logging.DEBUG)
 
         # car_data.connection = obd.Async("/dev/ttyUSB0")

@@ -20,7 +20,7 @@ Zadania zrobione:
 - [ ] ~~Zastanowić się nad stworzeniem własnej biblioteki pyOBD~~
 
 Zadania do zrobienia
-- [ ] Obsługa logiki LED'ów
+- [x] Obsługa logiki LED'ów
 - [x] Obsługa LED'ów bez sudo -gpio 10 (MOSI) SPI
 - [x] Obsługa LED'ów w wątku
 - [x] Poprawa gui by się ładnie renderowało

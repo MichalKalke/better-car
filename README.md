@@ -24,10 +24,10 @@ Zadania do zrobienia
 - [x] Obsługa LED'ów bez sudo -gpio 10 (MOSI) SPI
 - [x] Obsługa LED'ów w wątku
 - [x] Poprawa gui by się ładnie renderowało
-- [ ] ~~Zależność między obciążeniem silnika, a zużyciem paliwa~~ to jest granica bezpieczna silnika
+- [x] ~~Zależność między obciążeniem silnika, a zużyciem paliwa~~ to jest granica bezpieczna silnika
 - [x] Pogadać z Maxem
-- [ ] Tryb sportowy - pole pod całką mocy + przełożenia
-- [ ] Tryb eco do bezpiecznego pułapu + dla jazdy 40% throttle
+- [x] Tryb sportowy - pole pod całką mocy + przełożenia
+- [x] Tryb eco do bezpiecznego pułapu + dla jazdy 40% throttle
 
 Dane
 - Bezpieczne ramy silnika: 1800rpm

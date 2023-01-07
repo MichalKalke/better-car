@@ -127,14 +127,21 @@ rpmLabel = Label("RPM", 40, 170, white, None, True, 165)
 
 def renderLabels():
     engineLoadLabel.draw()
-    #engineLoad.draw()
     throttleLabel.draw()
-    #throttle.draw()
     oilTempLabel.draw()
-    #oilTemp.draw()
     rpmLabel.draw()
-    #rpm.draw()
     st_label.draw()
+    
+    engineLoad = Label(str(car.engine_load) + " %", 580, 290, white, None, None)
+    throttle = Label(str(car.throttle)+ " %", 580, 110, white, None, None)
+    oilTemp = Label(str(car.oil_temp) + " °C", 150, 290, white, None, None)
+    rpm = Label(str(car.rpm), 140, 110, white, None, None)
+    engineLoad.draw()
+    throttle.draw()
+    oilTemp.draw()
+    rpm.draw()
+
+    
 
 
 # game loop
@@ -149,15 +156,7 @@ def perfect_shifting():
     while running:
         window.blit(background, (0, 0))
         renderLabels()
-        engineLoad = Label(str(car.engine_load) + " %", 580, 290, white, None, None)
-        throttle = Label(str(car.throttle)+ " %", 580, 110, white, None, None)
-        oilTemp = Label(str(car.oil_temp) + " °C", 150, 290, white, None, None)
-        rpm = Label(str(car.rpm), 140, 110, white, None, None)
-        engineLoad.draw()
-        throttle.draw()
-        oilTemp.draw()
-        rpm.draw()
-
+   
         if mode_btn.draw():
             mode_btn.update_image()
 

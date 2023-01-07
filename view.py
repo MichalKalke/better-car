@@ -21,9 +21,6 @@ controller.obdThread()
 # use led asyc
 led = controller.ledThread()
 
-#while not const.obd_ready:
-time.sleep(1)
-
 window = pg.display.set_mode((const.resolution.width, const.resolution.height), pg.FULLSCREEN)
 
 background = pg.image.load('images/background.jpg')

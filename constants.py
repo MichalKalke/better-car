@@ -10,6 +10,7 @@ class Constants:
         self.resolution = j.resolution
         self.gears = j.gearDown
         self.gears_eco = j.gearUp
+        self.gear = j.gear
         print(self.gears_eco.g2)
         self.white = (255,255,255)
         self.blue = (3, 173, 252)

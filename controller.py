@@ -41,17 +41,7 @@ class ledThread(Thread):
 
     def pixels_off(self):
         pixels.fill(const.off)
-
-    def fill_pixels(self, color):
-        self.pixels_off()
-        pixels[0] = color
-        time.sleep(1)
-        pixels[1] = color
-        time.sleep(1)
-        pixels[2] = color
-        pixels[3] = color
-        time.sleep(2)
-        self.pixels_off()
+        
 
     def blink(self, how_many):
         i = 0
@@ -101,17 +91,17 @@ class ledThread(Thread):
         global gear
         tmp = (car_data.speed / car_data.rpm) * 100
         print(tmp)
-        if tmp > 0.5 and tmp < 0.9:
+        if tmp > (const.gear.g1 - 0.2) and tmp < (const.gear.g1 + 0.2):
             gear = 1
-        elif tmp > 1.1 and tmp < 1.6:
+        elif tmp > (const.gear.g2 - 0.2) and tmp < (const.gear.g2 + 0.2):
             gear = 2
-        elif tmp > 1.6 and tmp < 2.5:
+        elif tmp > (const.gear.g3 - 0.2) and tmp < (const.gear.g3 + 0.2):
             gear = 3
-        elif tmp > 2.5 and tmp < 3.1:
+        elif tmp > (const.gear.g4 - 0.2) and tmp < (const.gear.g4 + 0.2):
             gear = 4
-        elif tmp > 3.1 and tmp < 3.7:
+        elif tmp > (const.gear.g5 - 0.2) and tmp < (const.gear.g5 + 0.2):
             gear = 5
-        elif tmp > 3.7 and tmp < 5:
+        elif tmp > (const.gear.g6 - 0.2) and tmp < (const.gear.g6 + 0.2):
             gear = 6
         else: 
             gear = 0
@@ -218,74 +208,18 @@ class ledThread(Thread):
             self.eco_controller()
 
 
-
 class obdThread(Thread):
     def __init__(self):
         Thread.__init__(self)
-        self.daemon = True
         self.start()
     
     def run(self):
         global car_data
         global const
 
-        # time.sleep(2)
-        # car_data.new_rpm2(4000)
-        # time.sleep(2)
-        # car_data.new_rpm2(2000)
-        # time.sleep(5)
-        # car_data.new_oil_temp2(45)
-        # car_data.new_rpm2(4000)
-        # time.sleep(2)
-        # car_data.new_rpm2(4700)
-        # time.sleep(2)
-        # test sporta
-        # car_data.new_oil_temp2(85)
-        # car_data.new_throttle2(85)
-        # time.sleep(1)
-        # # gear 4 2,700
-        # car_data.new_speed2(138)
-        # car_data.new_rpm2(5100)
-        # time.sleep(2)
-        # car_data.new_speed2(151)
-        # car_data.new_rpm2(5600)
-        # time.sleep(2)
-        # car_data.new_speed2(162)
-        # car_data.new_rpm2(6000)
-        # time.sleep(2)
-        # car_data.new_speed2(172)
-        # car_data.new_rpm2(6400)
-        # time.sleep(2)
-        # car_data.new_throttle2(50)
-        # # car_data.new_speed2(176)
-        # # car_data.new_rpm2(6500)
-        # # time.sleep(4)
-        # car_data.new_speed2(97)
-        # car_data.new_rpm2(3600)
-        # time.sleep(4)
-        # car_data.new_speed2(48)
-        # car_data.new_rpm2(1800)
-
-        #test eco
-    #     car_data.new_oil_temp2(85)
-    #     car_data.new_throttle2(25)
-    #    # time.sleep(5)
-    #     # car_data.new_speed2(47)
-    #     # car_data.new_rpm2(2470)
-    #     # time.sleep(3)
-    #     # car_data.new_speed2(61)
-    #     # car_data.new_rpm2(2300)
-    #     # time.sleep(4)
-    #     car_data.new_speed2(13)
-    #     car_data.new_rpm2(1700)
-
-        #obd.logger.setLevel(obd.logging.DEBUG)
-
         car_data.connection = obd.Async("/dev/ttyUSB0")
 
         car_data.connection.watch(obd.commands.ENGINE_LOAD, callback=car_data.new_engine_load)
-        #car_data.connection.watch(obd.commands.SPEED, callback=car_data.new_engine_load)
-        #car_data.connection.watch(obd.commands.INTAKE_PRESSURE, callback=car_data.new_engine_load)
         car_data.connection.watch(obd.commands.THROTTLE_POS, callback=car_data.new_throttle)
         car_data.connection.watch(obd.commands.OIL_TEMP, callback=car_data.new_oil_temp)
         car_data.connection.watch(obd.commands.RPM, callback=car_data.new_rpm)

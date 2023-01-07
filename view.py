@@ -163,7 +163,6 @@ def perfect_shifting():
         if end_btn.draw():
             led.pixels_off()
             const.thread_kill = True
-            led.pixels_off()
             running = False
 
 

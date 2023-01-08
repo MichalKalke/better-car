@@ -170,6 +170,8 @@ def perfect_shifting():
         for event in pg.event.get():
             # quit game
             if event.type == QUIT:
+                led.pixels_off()
+                const.thread_kill = True
                 running = False
         pg.display.update()
     pg.quit()

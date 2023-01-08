@@ -8,7 +8,7 @@ Zadania zrobione:
 - [x] Złożenie projektu - bez ledów
 - [x] Skalibrowanie ekranu - nie potrzeba
 - [x] Przeczytanie rozdziałów z notatkami
-- [x] Umówienie sie z Maxem
+- [x] Umówienie sie z Maksem w celu omówienia pracy trybów
 - [x] Przetestowanie czy raspberry łączy się ze złączem OBD 
 - [x] Zaimportowanie biblioteki pyOBD w celu sprawdzenia czy działa
 - [x] Przetestowanie czy dane są zczytywane z silnika

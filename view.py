@@ -32,9 +32,6 @@ sport = pg.image.load('images/sport.png')
 eco = pg.image.load('images/eco.png')
 st = pg.image.load('images/stS.png')
 
-# colors
-white = (255,255,255)
-
 # label font
 font = pg.font.SysFont('freesansbold.ttf', 60)
 
@@ -121,9 +118,9 @@ st_label = Button(st, 750, 440, 1)
 
 # label instances
 engineLoadLabel = Label("Engine load", 470, 350, const.white, None, True, 27)
-throttleLabel = Label("Throttle", 470, 170, white, None, True, 104)
-oilTempLabel = Label("Oil", 40, 350, white, None, True, 205)
-rpmLabel = Label("RPM", 40, 170, white, None, True, 165)
+throttleLabel = Label("Throttle", 470, 170, const.white, None, True, 104)
+oilTempLabel = Label("Oil", 40, 350, const.white, None, True, 205)
+rpmLabel = Label("RPM", 40, 170, const.white, None, True, 165)
 
 def renderLabels():
     engineLoadLabel.draw()
@@ -132,10 +129,10 @@ def renderLabels():
     rpmLabel.draw()
     st_label.draw()
     
-    engineLoad = Label(str(car.engine_load) + " %", 580, 290, white, None, None)
-    throttle = Label(str(car.throttle)+ " %", 580, 110, white, None, None)
-    oilTemp = Label(str(car.oil_temp) + " °C", 150, 290, white, None, None)
-    rpm = Label(str(car.rpm), 140, 110, white, None, None)
+    engineLoad = Label(str(car.engine_load) + " %", 580, 290, const.white, None, None)
+    throttle = Label(str(car.throttle)+ " %", 580, 110, const.white, None, None)
+    oilTemp = Label(str(car.oil_temp) + " °C", 150, 290, const.white, None, None)
+    rpm = Label(str(car.rpm), 140, 110, const.white, None, None)
     engineLoad.draw()
     throttle.draw()
     oilTemp.draw()

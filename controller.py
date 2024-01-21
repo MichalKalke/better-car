@@ -8,7 +8,7 @@ import obd
 const = None
 car_data = None
 
-pixel_pin = board.D10
+#pixel_pin = board.D10
 num_pixels = 60
 gear = 0
 
@@ -20,9 +20,9 @@ def set_car_data(obj):
     global car_data
     car_data = obj
 
-pixels = neopixel.NeoPixel(
-    pixel_pin, num_pixels, brightness=0.05
-)
+#pixels = neopixel.NeoPixel(
+#    pixel_pin, num_pixels, brightness=0.05
+#)
 
 class ledThread(Thread):
     def __init__(self):

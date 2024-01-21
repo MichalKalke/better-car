@@ -6,6 +6,7 @@ from pygame import QUIT
 import constants as cnst
 import controller
 import time
+import sim
 
 pg.init()
 
@@ -16,12 +17,16 @@ controller.set_const(const)
 controller.set_car_data(car)
 
 # Connect obd
-controller.obdThread()
+#controller.obdThread()
 
 # use led asyc
-led = controller.ledThread()
+#led = controller.ledThread()
 
-window = pg.display.set_mode((const.resolution.width, const.resolution.height), pg.FULLSCREEN)
+#Simulation
+sim = sim.simThread()
+isSimulation = 1
+
+window = pg.display.set_mode((const.resolution.width, const.resolution.height))#, pg.FULLSCREEN) full screen
 
 background = pg.image.load('images/background.jpg')
 background = pg.transform.scale(background, (const.resolution.width, const.resolution.height))
@@ -57,7 +62,7 @@ class Label:
             box_surf = pygame.Surface(label.get_rect().inflate(self.inflate_x, self.inflate_y).size).convert_alpha()
 
             box_surf.fill((255, 255, 255, 1))
-            pygame.draw.rect(box_surf, white, box_surf.get_rect(), 3)
+            pygame.draw.rect(box_surf, '#FFFFFF', box_surf.get_rect(), 3)
 
             box_surf.blit(label, label.get_rect(center=box_surf.get_rect().center))
             label = box_surf
@@ -129,10 +134,17 @@ def renderLabels():
     rpmLabel.draw()
     st_label.draw()
     
-    engineLoad = Label(str(car.engine_load) + " %", 580, 290, const.white, None, None)
-    throttle = Label(str(car.throttle)+ " %", 580, 110, const.white, None, None)
-    oilTemp = Label(str(car.oil_temp) + " °C", 150, 290, const.white, None, None)
-    rpm = Label(str(car.rpm), 140, 110, const.white, None, None)
+    if isSimulation:
+        engineLoad = Label(str(int(sim.simulator.get_engine_load())) + " %", 580, 290, const.white, None, None)
+        throttle = Label(str(int(sim.simulator.get_throttle()))+ " %", 580, 110, const.white, None, None)
+        oilTemp = Label(str(int(sim.simulator.get_oil_temp())) + " °C", 150, 290, const.white, None, None)
+        rpm = Label(str(int(sim.simulator.get_rpm())), 140, 110, const.white, None, None)
+    else:
+        engineLoad = Label(str(car.engine_load) + " %", 580, 290, const.white, None, None)
+        throttle = Label(str(car.throttle)+ " %", 580, 110, const.white, None, None)
+        oilTemp = Label(str(car.oil_temp) + " °C", 150, 290, const.white, None, None)
+        rpm = Label(str(car.rpm), 140, 110, const.white, None, None)
+
     engineLoad.draw()
     throttle.draw()
     oilTemp.draw()
@@ -158,18 +170,20 @@ def perfect_shifting():
             mode_btn.update_image()
 
         if end_btn.draw():
-            led.pixels_off()
+            #led.pixels_off()
             const.thread_kill = True
             running = False
+            sim.stop()
 
 
         # event handler
         for event in pg.event.get():
             # quit game
             if event.type == QUIT:
-                led.pixels_off()
+               #led.pixels_off()
                 const.thread_kill = True
                 running = False
+                sim.stop()
         pg.display.update()
     pg.quit()
 

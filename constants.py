@@ -1,9 +1,11 @@
 import json
 from types import SimpleNamespace
+import os
 
 
 class Constants:
     def __init__(self):
+        print(os.listdir())
         f = open('constants.json')
         j = json.loads(f.read(), object_hook=lambda d: SimpleNamespace(**d))
         f.close()

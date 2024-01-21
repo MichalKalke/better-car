@@ -90,7 +90,6 @@ class ledThread(Thread):
     def calculate_gear(self):
         global gear
         tmp = (car_data.speed / car_data.rpm) * 100
-        print(tmp)
         if tmp > (const.gear.g1 - 0.2) and tmp < (const.gear.g1 + 0.2):
             gear = 1
         elif tmp > (const.gear.g2 - 0.2) and tmp < (const.gear.g2 + 0.2):
@@ -185,19 +184,54 @@ class ledThread(Thread):
             if car_data.rpm < const.gears_eco.down:
                 self.gear_down(const.yellow)
 
+    def sportMock(self):
+        global gear
+        self.calculate_gear()
+        if gear == 1:
+            car_data.new_gear(gear)
+        if gear == 2:
+            car_data.new_gear(gear)
+        if gear == 3:
+            car_data.new_gear(gear)
+        if gear == 4:
+            car_data.new_gear(gear)
+        if gear == 5:
+            car_data.new_gear(gear)
+        if gear == 6:
+            car_data.new_gear(gear)
+        
+    def ecoMock(self):
+        global gear
+        self.calculate_gear()
+        if gear == 1:
+            car_data.new_gear(gear)
+        if gear == 2:
+            car_data.new_gear(gear)
+        if gear == 3:
+            car_data.new_gear(gear)
+        if gear == 4:
+            car_data.new_gear(gear)
+        if gear == 5:
+            car_data.new_gear(gear)
+        if gear == 6:
+            car_data.new_gear(gear)
 
     def sport_controller(self):
         if (car_data.rpm > 3000 and car_data.oil_temp < 40) or (car_data.rpm > 4500 and car_data.oil_temp < 80):
             self.blink(2)
         else:
              if car_data.throttle >= 60:
-                self.sport()
+                # if using mock comment out self.sport()
+                self.sportMock()
+                #self.sport()
              else:
                 self.normal()
 
     def eco_controller(self):
         if car_data.throttle <= 30:
-            self.eco()
+            # if using mock comment out self.eco()
+            self.ecoMock()
+            #self.eco()
         else:
             self.normal()
                 

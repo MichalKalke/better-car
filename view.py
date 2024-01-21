@@ -7,6 +7,8 @@ import constants as cnst
 import controller
 import time
 import sim
+from app import set_car_data, run_flask
+import os
 
 pg.init()
 
@@ -15,12 +17,13 @@ car = cnst.Car_data()
 
 controller.set_const(const)
 controller.set_car_data(car)
+set_car_data(car)
 
 # Connect obd
 #controller.obdThread()
 
 # use led asyc
-#led = controller.ledThread()
+led = controller.ledThread()
 
 #Simulation
 sim = sim.simThread()
@@ -135,23 +138,21 @@ def renderLabels():
     st_label.draw()
     
     if isSimulation:
-        engineLoad = Label(str(int(sim.simulator.get_engine_load())) + " %", 580, 290, const.white, None, None)
-        throttle = Label(str(int(sim.simulator.get_throttle()))+ " %", 580, 110, const.white, None, None)
-        oilTemp = Label(str(int(sim.simulator.get_oil_temp())) + " °C", 150, 290, const.white, None, None)
-        rpm = Label(str(int(sim.simulator.get_rpm())), 140, 110, const.white, None, None)
-    else:
-        engineLoad = Label(str(car.engine_load) + " %", 580, 290, const.white, None, None)
-        throttle = Label(str(car.throttle)+ " %", 580, 110, const.white, None, None)
-        oilTemp = Label(str(car.oil_temp) + " °C", 150, 290, const.white, None, None)
-        rpm = Label(str(car.rpm), 140, 110, const.white, None, None)
+        car.new_engine_load2(int(sim.simulator.get_engine_load()))
+        car.new_throttle2(int(sim.simulator.get_throttle()))
+        car.new_oil_temp2(int(sim.simulator.get_oil_temp()))
+        car.new_rpm2(int(sim.simulator.get_rpm()))
+        car.new_speed2((int(sim.simulator.get_speed())))
+
+    engineLoad = Label(str(car.engine_load) + " %", 580, 290, const.white, None, None)
+    throttle = Label(str(car.throttle)+ " %", 580, 110, const.white, None, None)
+    oilTemp = Label(str(car.oil_temp) + " °C", 150, 290, const.white, None, None)
+    rpm = Label(str(car.rpm), 140, 110, const.white, None, None)
 
     engineLoad.draw()
     throttle.draw()
     oilTemp.draw()
     rpm.draw()
-
-    
-
 
 # game loop
 running = True
@@ -174,6 +175,7 @@ def perfect_shifting():
             const.thread_kill = True
             running = False
             sim.stop()
+            os.kill(os.getpid(), 15)
 
 
         # event handler
@@ -184,7 +186,14 @@ def perfect_shifting():
                 const.thread_kill = True
                 running = False
                 sim.stop()
+                os.kill(os.getpid(), 15)
+        
         pg.display.update()
     pg.quit()
 
 perfect_shifting()
+
+
+if __name__ == '__main__':
+    flask_thread = run_flask()
+    perfect_shifting()

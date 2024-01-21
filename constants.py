@@ -32,6 +32,7 @@ class Car_data:
         self.rpm = 0
         self.speed = 0
         self.connection = None
+        self.gear = 0
 
     def new_engine_load(self, r):
         self.engine_load = int(r.value.magnitude)
@@ -53,8 +54,15 @@ class Car_data:
 
     def new_throttle2(self, r):
         self.throttle = r
+
     def new_rpm2(self, r):
         self.rpm = r
 
     def new_oil_temp2(self, r):
         self.oil_temp = r
+
+    def new_engine_load2(self, r):
+        self.engine_load = r
+
+    def new_gear(self, r):
+        self.gear = r
